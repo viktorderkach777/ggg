@@ -1,7 +1,20 @@
 <?php
+$error=array();
     if($_SERVER['REQUEST_METHOD']=="POST") {
         $email = $_POST['txtEmail'];
-        echo '<h1>Post Request SERVER'.$email.'</h1>';
+        if(isset($_POST['txtEmail']) and !empty($_POST['txtEmail'])) {
+            $email=$_POST['txtEmail'];
+        }
+        else
+        {
+            $error['email']="Field EMAIL is required";
+        }
+        if(count($error)==0)
+        {
+            header("Location: /document-index.php");
+            exit;
+        }
+        // echo '<h1>Post Request SERVER'.$email.'</h1>';
     }
 ?>
 
@@ -17,7 +30,11 @@
     <h1>Login page</h1>
 
 <form method="post">
-    
+    <?php if(count($error)>0) { ?>
+        <div class="alert alert-danger" role="alert">
+            Data Incorrect
+        </div>
+    <?php } ?>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="text" class="form-control" name="txtEmail" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

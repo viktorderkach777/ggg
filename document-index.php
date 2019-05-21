@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php include_once("document-header.php"); ?>
+<?php
+    include_once("document-header.php");
+?>
 <body>
     <?php include_once("document-navbar.php"); ?>
 <div class="container">
