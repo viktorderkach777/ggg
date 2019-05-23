@@ -33,7 +33,7 @@ $(function () {
                 const reader = new FileReader();
                 reader.onload = function () {
                     $imageView.attr('src', reader.result);
-                    //$progressUpload.hide();
+                    $progressUpload.hide();
 
                 };
                 reader.readAsDataURL(files[0]);
