@@ -1,7 +1,10 @@
 <?php
-define('DB_NAME','base');
-define('DB_USER','table2_user');
-define('DB_PASSWORD','FQpjBhQs1g33eBuS');
+// define('DB_NAME','telesyk');
+define('DB_NAME','registration');
+// define('DB_USER','telesyk_user');
+// define('DB_PASSWORD','vyHEqRTRyH3Efgfc');
+define('DB_USER','root');
+define('DB_PASSWORD','');
 define('DB_HOST','localhost');
-define('DB_CHARSET','');//utf8
+// define('DB_CHARSET','utf8');
 ?>

@@ -1,48 +1,55 @@
-<?php
-$error = array();
-$is_valid_email=true;
-if($_SERVER['REQUEST_METHOD']=="POST") {
-    $email='';
-    if(isset($_POST['txtEmail']) and !empty($_POST['txtEmail'])) {
-        $email=$_POST['txtEmail'];
-    }
-    else 
-    {
-        $is_valid_email=false;
-        $error['email']="Поле пошта є обов'язковим";
-    }
 
-    if(count($error)==0)
-    {
-        header("Location: /index.php");
-        exit;
-    }
-    //echo "<h1>Request POST ".$email."</h1>";
+<?php
+require_once 'config.php';
+
+$errors = array();
+
+$db = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+if (isset($_POST['login_user'])) {
+  $email = mysqli_real_escape_string($db, $_POST['email']);
+  $password = mysqli_real_escape_string($db, $_POST['password']);
+
+  if (empty($email)) {
+  	array_push($errors, "email is required");
+  }
+  if (empty($password)) {
+  	array_push($errors, "Password is required");
+  }
+
+  if (count($errors) == 0) {
+  	$password = md5($password);
+  	$query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+  	$results = mysqli_query($db, $query);
+  	if (mysqli_num_rows($results) == 1) {  	 
+  	  header('location: index.php');
+  	}else {
+  		array_push($errors, "Wrong email/password combination");
+  	}
+  }
 }
+
 ?>
+
 <?php include_once("header.php") ?>
 
 <h1>Вхід на сайт</h1>
-<form method="post">
-    <?php  if(count($error)>0) { ?>
-    <div class="alert alert-danger" role="alert">
-        Дані вказані не коректно!
-    </div>
-    <?php } ?>
+<?php include('errors.php'); ?>
+<form method="post">  
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="text" class="form-control <?php echo $is_valid_email ? "" : "is-invalid"; ?>" name="txtEmail" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" name="txtPasswprd" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" name="login_user">Submit</button>
 </form>
 
 <?php include_once("footer.php") ?>

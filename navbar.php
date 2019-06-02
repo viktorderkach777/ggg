@@ -9,14 +9,14 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login.php">Вхід на сайт</a>
+        <a class="nav-link" href="/login.php">Sing In</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="registration.php">Registration</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+        <a class="nav-link" href="#">Sing Out</a>
+      </li>      
     </ul>
   </div>
 </nav>

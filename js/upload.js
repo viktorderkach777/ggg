@@ -3,7 +3,8 @@ $(function () {
     $imageView = $("#user-icon");
     $linkSelectFile = $("#linkSelectFile");
     $progressUpload = $("#progressUpload");
-    //console.log("---upload DOM---");
+    $inputUploadImage2 = $("#inputImageUpload2");
+    $temp = $("#temp");    
 
     $linkSelectFile.on('click', function (e) {
         e.preventDefault();
@@ -11,14 +12,11 @@ $(function () {
     });
 
     $imageView.on('click', function () {
-        uploadIcon();
-        //console.log("---Hello--", "click image");
+        uploadIcon();        
     });
     $inputUploadImage.on('change', function (e) {
-
-        e.preventDefault();
-        $progressUpload.show();
-        //console.log('-----upload select file----', e.target);
+        
+        $progressUpload.show();        
         let files;
         if (e.dataTransfer) {
             files = e.dataTransfer.files;
@@ -26,17 +24,17 @@ $(function () {
             files = e.target.files;
         }
 
-        if (files && files[0]) {
-            //console.log('----file[0]----', files[0]);
+        if (files && files[0]) {            
             if (files[0].type.match(/^image\//)) {
                 
                 const reader = new FileReader();
                 reader.onload = function () {
                     $imageView.attr('src', reader.result);
+                    $inputUploadImage2.click();
                     $progressUpload.hide();
 
                 };
-                reader.readAsDataURL(files[0]);
+                reader.readAsDataURL(files[0]);         
             }
             else {
                 alert("Invalid file type");
